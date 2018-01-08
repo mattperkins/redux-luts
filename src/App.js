@@ -20,9 +20,11 @@ const defaultState = {
   moreState: 'Even more state'
 }
 
+// reducer
 const greeting = (state = defaultState, action) => {
-  // reducer
   switch (action.type) {
+    case 'API':
+      return { ...state, info: `API: ${action.lemon}` }
     case 'GREET_ME':
       return { ...state, welcome: 'Hello, Fred' }
     case 'GREET_WORLD':
@@ -36,9 +38,20 @@ const greeting = (state = defaultState, action) => {
 const store = createStore(greeting)
 
 console.log(store.getState())
+
+const lemon = "This is data payload from API"
+
 // dispatch action
 store.dispatch({
-  type: 'GREET_ME'
+  type: 'API',
+  lemon
+})
+
+console.log(store.getState())
+
+store.dispatch({
+  type: 'API',
+  lemon: 'Alternate API data'
 })
 
 console.log(store.getState())
